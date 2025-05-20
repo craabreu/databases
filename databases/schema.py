@@ -104,6 +104,6 @@ SCHEMA_LOOKUP: MappingProxyType = MappingProxyType(
         "dlpno": DLPNO_SCHEMA,
         "cosmo": DLPNO_SCHEMA,
         "dft": DFT_SCHEMA,
-        "semiemperical": DFT_SCHEMA,
+        "semiempirical": DFT_SCHEMA,
     }
 )
