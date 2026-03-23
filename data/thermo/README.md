@@ -13,9 +13,21 @@
 | **`a1`**                     | number | —            | First-order Wilhoit polynomial coefficient      |
 | **`a2`**                     | number | —            | Second-order Wilhoit polynomial coefficient     |
 | **`a3`**                     | number | —            | Third-order Wilhoit polynomial coefficient      |
-| **`H0`**                     | number | kJ/mol       | Wilhoit integration constant for enthalpy       |
+| **`H0`**                     | number | J/mol        | Wilhoit integration constant for enthalpy       |
 | **`S0`**                     | number | J/(mol·K)    | Wilhoit integration constant for entropy        |
 | **`B`**                      | number | K            | Wilhoit scaled temperature coefficient          |
+| **`DHPM`**                   | number | J/mol        | Petersson-to-Melius enthalpy difference         |
+
+## Notes
+
+- All molecular structures are represented using canonical SMILES without atom map numbers
+
+- Thermodynamic properties (H298, S298, Cp300) are calculated from DFT-optimized geometries with
+DLPNO-CCSD(T)-F12d single-point calculations
+
+- The standard enthalpy of formation (`H298`) and Wilhoit integration constant for enthalpy (`H0`)
+derive from calculations using Petersson-type bond additivity corrections (BACs). Add `DHPM` to
+either of these in order to obtain their Melius-type BAC-corrected versions.
 
 ## Wilhoit Model
 
@@ -37,8 +49,8 @@ $C_\mathrm{p}(0)$ is the heat capacity at zero temperature, whose value is equal
 $$
 \begin{aligned}
 H(T) &= H_0 +
-        C_\mathrm{p}(0) T + \Bigg\{
-            \left[2 + \sum_{i=0}^3 a_i\right] \left[
+        C_\mathrm{p}(0) T - \Bigg\{
+            \left(2 + \sum_{i=0}^3 a_i\right) \left[
                 \frac{y}{2} - 1 + \left( \frac{1}{y} - 1 \right) \ln \frac{T}{y}
             \right] \\ &+ 
             y^2 \sum_{i=0}^3 \frac{y^i}{(i+2)(i+3)} \sum_{j=0}^3 f_{ij} a_j
@@ -64,8 +76,3 @@ $$
         \left[ \ln y + \left( 1 + y \sum_{i=0}^3 \frac{a_i y^i}{2+i} \right) y
         \right]
 $$
-
-## Notes
-
-- All molecular structures are represented using canonical SMILES with atom map numbers removed
-- Thermodynamic properties (H298, S298, Cp300) are calculated from DFT-optimized geometries with DLPNO-CCSD(T)-F12d single-point calculations
